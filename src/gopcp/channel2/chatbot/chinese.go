@@ -13,7 +13,7 @@ type simpleCN struct {
 
 func NewSimpleCN(name string, talk Talk) Chatbot {
 	return &simpleCN{name: name, talk: talk}
-}	
+}
 
 func (robot *simpleCN) Name() string {
 	return robot.name
