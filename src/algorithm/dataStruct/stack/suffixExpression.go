@@ -21,10 +21,12 @@ func calSuffixExp(expStr string) float64 {
 	for _, ele := range expElements {
 		if _, ok := opts[ele]; ok {
 			//如果是操作符则从栈中弹出两个元素，进行计算后，将结果入栈,注意：在弹出时被减(加、乘、除)数先被弹出
-			num1 := mst.Top()
-			mst.Pop()
-			num2 := mst.Top()
-			mst.Pop()
+			if mst.Size() < 2 {
+				fmt.Println("后缀表达式格式错误，操作符前至少有两个操作数")
+				os.Exit(1)
+			}
+			num1 := mst.Pop().(float64)
+			num2 := mst.Pop().(float64)
 			result := 0.0
 			switch ele {
 			case "+":
@@ -48,5 +50,5 @@ func calSuffixExp(expStr string) float64 {
 			mst.Push(v)
 		}
 	}
-	return mst.Top()
+	return mst.Top().(float64)
 }

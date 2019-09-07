@@ -1,7 +1,7 @@
 package data
 
 type Node struct {
-	value float64
+	value interface{}
 	next  *Node
 }
 
@@ -25,7 +25,7 @@ func (st *MyStack) Size() int {
 }
 
 //入栈
-func (st *MyStack) Push(v float64) {
+func (st *MyStack) Push(v interface{}) {
 	//使用头插法
 	newHead := new(Node)
 	newHead.value = v
@@ -35,19 +35,22 @@ func (st *MyStack) Push(v float64) {
 }
 
 //出栈
-func (st *MyStack) Pop() {
+func (st *MyStack) Pop() interface{} {
 	if st.size > 0 {
 		next := st.head.next
+		value := st.head.value
 		st.head.next = nil
 		st.head = next
 		st.size -= 1
+		return value
 	}
+	return nil
 }
 
 //获取栈顶元素
-func (st *MyStack) Top() float64 {
+func (st *MyStack) Top() interface{} {
 	if st.size > 0 {
 		return st.head.value
 	}
-	return 0
+	return nil
 }
