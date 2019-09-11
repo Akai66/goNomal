@@ -87,7 +87,7 @@ func (mpq *myPriorityQueue) resize() {
 }
 
 func main() {
-	mpq := myPriorityQueue{0, make([]float64, 5)}
+	mpq := &myPriorityQueue{0, make([]float64, 5)}
 	mpq.Push(1)
 	fmt.Println(mpq.Peek())
 	mpq.Push(3)
