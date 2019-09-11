@@ -1,5 +1,7 @@
 package qdata
 
+import "fmt"
+
 type Node struct {
 	value interface{}
 	next  *Node
@@ -56,4 +58,16 @@ func (mq *MyQueue) Empty() bool {
 
 func (mq *MyQueue) Size() int {
 	return mq.size
+}
+
+func (mq *MyQueue) Print() {
+	head := mq.head
+	for head != nil {
+		if head.next != nil {
+			fmt.Printf("%v->", head.value)
+		} else {
+			fmt.Println(head.value)
+		}
+		head = head.next
+	}
 }
