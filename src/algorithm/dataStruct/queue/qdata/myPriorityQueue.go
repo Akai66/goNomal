@@ -1,6 +1,8 @@
 package qdata
 
-import "fmt"
+import (
+	"fmt"
+)
 
 //优先级队列，每次出队列的是最大值或最小值，利用二叉堆实现
 type MyPriorityQueue struct {
@@ -34,8 +36,32 @@ func (mpq *MyPriorityQueue) Pop() float64 {
 	mpq.arr[0] = mpq.arr[mpq.size-1]
 	mpq.size -= 1
 	//二叉堆进行"下沉"操作
-	mpq.downAdjust()
+	mpq.downAdjust(0)
 	return maxV
+}
+
+//删除指定元素
+func (mpq *MyPriorityQueue) Remove(v float64) {
+	if mpq.size <= 0 {
+		fmt.Println("Remove error：队列为空")
+		return
+	}
+	removeIndex := -1
+	for i := 0; i < mpq.size; i++ {
+		if mpq.arr[i] == v {
+			removeIndex = i
+			break
+		}
+	}
+	if removeIndex < 0 {
+		fmt.Println("Remove error：被删除的元素不存在")
+		return
+	}
+	//将尾部元素赋值给被删除的位置
+	mpq.arr[removeIndex] = mpq.arr[mpq.size-1]
+	mpq.size -= 1
+	//二叉堆进行"下沉"操作
+	mpq.downAdjust(removeIndex)
 }
 
 //获取队列首部
@@ -76,9 +102,9 @@ func (mpq *MyPriorityQueue) upAdjust() {
 }
 
 //二叉堆"下沉"操作
-func (mpq *MyPriorityQueue) downAdjust() {
-	parentIndex := 0
-	childIndex := 1
+func (mpq *MyPriorityQueue) downAdjust(index int) {
+	parentIndex := index
+	childIndex := index*2 + 1
 	temp := mpq.arr[parentIndex]
 	if mpq.Tp == "max" {
 		for childIndex < mpq.size {
