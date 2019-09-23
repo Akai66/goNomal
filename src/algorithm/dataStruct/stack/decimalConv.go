@@ -1,56 +1,65 @@
 package main
 
 import (
-	"algorithm/dataStruct/stack/data"
+	"algorithm/dataStruct/queue/qdata"
 	"fmt"
 )
 
-//题目：将十进制数n(正数，负数，0)，转换为R进制数（2<=R<=16,R!=10)
-func decimalConv(n int, R int) {
-	if R >= 2 && R <= 16 && R != 10 {
-		ms := new(data.MyStack)
-		//是否为负数
-		isNegative := false
-		if n == 0 {
-			fmt.Print(0)
+//十进制转其它进制(小数部分)
+//不断重复将十进制小数*目标进制，每次取乘积的整数部分入队列，循环结束条件：小数部分为0或达到指定精度
+//最后将队列元素依次输出(先进先出)
+
+func decimalConv(f float64, R int) {
+	if f > -1 && f < 1 && R >= 2 && R <= 16 && R != 10 {
+		if f == 0 {
+			fmt.Print("0.0")
 			return
 		}
-		if n < 0 {
+		//是否为负数
+		isNegative := false
+		if f < 0 {
+			f = -f
 			isNegative = true
-			n = -n
 		}
-		for n != 0 {
-			odd := n % R
-			switch odd {
+		n := 0 //精度最多保留8位
+		mq := new(qdata.MyQueue)
+		for n < 8 && f != 0 {
+			result := f * float64(R)
+			el := int(result) //会默认向下取整
+			//将结果统一转换为字符
+			var cel byte
+			switch el {
 			case 10:
-				odd = 'A'
+				cel = 'A'
 			case 11:
-				odd = 'B'
+				cel = 'B'
 			case 12:
-				odd = 'C'
+				cel = 'C'
 			case 13:
-				odd = 'D'
+				cel = 'D'
 			case 14:
-				odd = 'E'
+				cel = 'E'
 			case 15:
-				odd = 'F'
+				cel = 'F'
 			default:
-				odd += 48 //字符编码，字符0的编码为48，1的编码为49，以此类推
+				cel = byte(el + 48)
 			}
-			ms.Push(odd)
-			n /= R
+			mq.Push(cel)
+			f = result - float64(el)
+			n += 1
 		}
 		if isNegative {
 			fmt.Print("-")
 		}
-		for !ms.Empty() {
-			fmt.Printf("%c", ms.Pop())
+		fmt.Print("0.")
+		for !mq.Empty() {
+			fmt.Printf("%c", mq.Pop())
 		}
 		return
 	}
-	fmt.Println("参数错误")
+	fmt.Print("参数错误")
 }
 
 func main() {
-	decimalConv(1000, 16)
+	decimalConv(-0.86, 16)
 }
