@@ -20,9 +20,9 @@ func main() {
 	for name, report := range reportMap {
 		for _, detail := range report {
 			for taskName, data := range detail {
-				if taskName == "面向大项目部销售的综合支持" || taskName == "HBH03" || taskName == "HUN01" || taskName == "HBH161" || taskName == "HD127" {
-					continue
-				}
+				//if taskName == "面向大项目部销售的综合支持" || taskName == "HBH03" || taskName == "HUN01" || taskName == "HBH161" || taskName == "HD127" {
+				//	continue
+				//}
 				for date, item := range data {
 					//定位需要修改的cell的列坐标
 					tm, _ := time.Parse("2006/01/02", date)
@@ -49,10 +49,10 @@ func main() {
 					//填写工时
 					axis, _ := excelize.JoinCellName(col, row)
 					f.SetCellValue(name, axis, item["spentTime"])
-					if item["content"] != "" {
-						comment := fmt.Sprintf(`{"author":"作者: ","text":"%v"}`, item["content"])
-						f.AddComment(name, axis, comment)
-					}
+					//if item["content"] != "" {
+					//	comment := fmt.Sprintf(`{"author":"作者: ","text":"%v"}`, item["content"])
+					//	f.AddComment(name, axis, comment)
+					//}
 				}
 			}
 		}
