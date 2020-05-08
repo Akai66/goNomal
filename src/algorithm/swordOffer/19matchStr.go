@@ -30,8 +30,10 @@ func matchCore(strIndex,patternIndex,strLen,patternLen int,str,pattern string) b
     }
     if patternIndex + 1 < patternLen && pattern[patternIndex+1] == '*' {
         if strIndex != strLen && (str[strIndex] == pattern[patternIndex] || pattern[patternIndex] == '.') {
+            //*前一个字符匹配上时，可以将*处理为匹配0次，匹配1次，匹配多次
             return matchCore(strIndex,patternIndex+2,strLen,patternLen,str,pattern) || matchCore(strIndex+1,patternIndex+2,strLen,patternLen,str,pattern) || matchCore(strIndex+1,patternIndex,strLen,patternLen,str,pattern)
         }else {
+            //*前一个字符未匹配上时，直接将*处理为匹配0次
             return matchCore(strIndex,patternIndex+2,strLen,patternLen,str,pattern)
         }
     }
