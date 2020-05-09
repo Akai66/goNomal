@@ -14,6 +14,7 @@ func main() {
 		if !strings.HasPrefix(url, "http://") {
 			url = "http://" + url
 		}
+		fmt.Println(url)
 		res, err := http.Get(url)
 		if err != nil {
 			fmt.Fprintf(os.Stderr, "fetch:%v\n", err)
