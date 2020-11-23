@@ -1,0 +1,23 @@
+{
+ "Barrel - Part 1": {
+  "Num": 1,
+  "Year": "2006",
+  "Month": "1",
+  "Title": "Barrel - Part 1",
+  "Img": "https://imgs.xkcd.com/comics/barrel_cropped_(1).jpg"
+ },
+ "Island (sketch)": {
+  "Num": 3,
+  "Year": "2006",
+  "Month": "1",
+  "Title": "Island (sketch)",
+  "Img": "https://imgs.xkcd.com/comics/island_color.jpg"
+ },
+ "Petit Trees (sketch)": {
+  "Num": 2,
+  "Year": "2006",
+  "Month": "1",
+  "Title": "Petit Trees (sketch)",
+  "Img": "https://imgs.xkcd.com/comics/tree_cropped_(1).jpg"
+ }
+}
